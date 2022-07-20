@@ -103,13 +103,13 @@ def input_validate(my_string, check_type):
         return False
 
 
-def encode(crypt_pass, message):
+def string_encode(crypt_pass, message):
     """ Encode a message """
     cipher = encrypt(crypt_pass, message)
     return base64.urlsafe_b64encode(cipher.encode("latin-1"))
 
 
-def decode(crypt_pass, cipher):
+def string_decode(crypt_pass, cipher):
     """ Decode a message """
     cipher = base64.urlsafe_b64decode(cipher.encode("latin-1"))
     plaintext = decrypt(crypt_pass, cipher)

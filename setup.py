@@ -10,7 +10,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name='hccpf',
-    version='0.0.97',
+    version='0.0.99',
     author='Hernán Collazo',
     author_email='hernan.collazo@gmail.com',
     description='Common useful python functions',
@@ -22,5 +22,5 @@ setuptools.setup(
     },
     license='MIT',
     packages=['hccpf'],
-    install_requires=['requests', 'requests', 'urllib3'],
+    install_requires=['simple-crypt'],
 )
