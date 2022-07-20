@@ -23,7 +23,6 @@ import time
 from simplecrypt import encrypt, decrypt
 import base64
 import random
-from random import 
 
 
 def get_domain(string):

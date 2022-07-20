@@ -1,2 +1,1 @@
-graypy==2.1.0
-simplecrypt
+simple-crypt==4.1.7
