@@ -13,16 +13,15 @@ import logging
 import time
 import socket
 import smtplib
-import urllib3
 import hashlib
 import string
 import socket
-import requests
 import re
 import time
-from simplecrypt import encrypt, decrypt
 import base64
 import random
+from random import choice, randint
+from simplecrypt import encrypt, decrypt
 
 
 def get_domain(string):
@@ -104,13 +103,13 @@ def input_validate(my_string, check_type):
         return False
 
 
-def encode(message):
+def encode(crypt_pass, message):
     """ Encode a message """
     cipher = encrypt(crypt_pass, message)
     return base64.urlsafe_b64encode(cipher.encode("latin-1"))
 
 
-def decode(cipher):
+def decode(crypt_pass, cipher):
     """ Decode a message """
     cipher = base64.urlsafe_b64decode(cipher.encode("latin-1"))
     plaintext = decrypt(crypt_pass, cipher)
@@ -118,7 +117,7 @@ def decode(cipher):
 
 
 def random_id():
-    """ Return a random string, used as process id for log reference """
+    """ Return a random string """
     chars = string.ascii_letters + string.digits
     return "".join(choice(chars) for x in range(randint(8, 16)))
 
@@ -131,3 +130,9 @@ def resolve_hostname(hostname):
     except socket.gaierror:
         addr = "NA"
     return addr
+
+
+def stripComments(code):
+    """ Remove # from a string """
+    code = str(code)
+    return re.sub(r'(?m)^ *#.*\n?', '', code)

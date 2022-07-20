@@ -1,1 +1,1 @@
-simple-crypt==4.1.7
+simple-crypt>4.0
