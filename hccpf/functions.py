@@ -7,12 +7,24 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 import sys
-import string 
 import os
 import os.path
 import logging
 import time
 import socket
+import smtplib
+import urllib3
+import hashlib
+import string
+import socket
+import requests
+import re
+import time
+from simplecrypt import encrypt, decrypt
+import base64
+import random
+from random import 
+
 
 def get_domain(string):
     """ The a domain name from a URL """
@@ -51,3 +63,72 @@ def comp_dates(d1, d2):
     """ Compare two dates and return the diff in seconds """
     return time.mktime(time.strptime(d2, "%Y-%m-%d %H:%M:%S")) -\
         time.mktime(time.strptime(d1, "%Y-%m-%d %H:%M:%S"))
+        
+        
+def sendEmail(mailFrom, mailTo, mailSubject, mailBody, SMTPServer="localhost", SMTPTimeOut=30):
+    "Send basic email"
+    msg = "" + "From: " + mailFrom + "\n"
+    msg = msg + "To: " + mailTo + "\n"
+    msg = msg + "Subject: " + mailSubject + "\n"
+    msg = msg + "\n"
+    msg = msg + mailBody
+    socket.setdefaulttimeout(SMTPTimeOut)
+    try:
+        server = smtplib.SMTP(SMTPServer)
+        server.set_debuglevel(0)
+    except socket.timeout:
+        print("\n\n**** ERROR **** server timeout!\n\n")
+        sys.exit(0)
+    except smtplib.socket.gaierror:
+        return False
+    server.sendmail(mailFrom, mailTo, msg)
+    server.quit()
+    
+    
+def input_validate(my_string, check_type):
+    """ Basic string validation function """
+    if check_type == 'username':
+        return re.match("[A-Za-z\._-]*$", my_string)
+    elif check_type == 'hostname':
+        return re.match("[A-Za-z0-9_-]*$", my_string)
+    elif check_type == 'int':
+        return my_string.isdigit()
+    elif check_type == 'email':
+        return re.match("^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$", my_string)
+    elif check_type == 'comment':
+        return re.match(r"[A-Za-z0-9\s\(\)_-]*$", my_string)
+    elif check_type == 'version_name':
+        return re.match(r"[A-Za-z0-9\.\s_-]*$", my_string)
+    elif check_type == 'aws_ami_id':
+        return re.match("^ami-\w*$", my_string)
+    else:
+        return False
+
+
+def encode(message):
+    """ Encode a message """
+    cipher = encrypt(crypt_pass, message)
+    return base64.urlsafe_b64encode(cipher.encode("latin-1"))
+
+
+def decode(cipher):
+    """ Decode a message """
+    cipher = base64.urlsafe_b64decode(cipher.encode("latin-1"))
+    plaintext = decrypt(crypt_pass, cipher)
+    return plaintext
+
+
+def random_id():
+    """ Return a random string, used as process id for log reference """
+    chars = string.ascii_letters + string.digits
+    return "".join(choice(chars) for x in range(randint(8, 16)))
+
+
+def resolve_hostname(hostname):
+    """ Try to resolve a hostname """
+    socket.setdefaulttimeout(10)
+    try:
+        addr = socket.gethostbyname(hostname)
+    except socket.gaierror:
+        addr = "NA"
+    return addr
