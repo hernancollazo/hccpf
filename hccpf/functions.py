@@ -135,3 +135,19 @@ def string_decode(crypt_pass, my_cipher):
     my_cipher = base64.urlsafe_b64decode(my_cipher)
     plaintext = decrypt(crypt_pass, my_cipher)
     return plaintext.decode('utf8')
+
+
+def ValidateEmail(email):
+    """ is a valid email address ?"""
+    if len(email) > 7:
+        if re.match("^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$", email) != None:
+            return 1
+    return 0
+
+
+def random_password():
+    """ Create a password of random length between 8 and 16
+        characters long, made up of numbers and letters.
+    """
+    chars = string.ascii_letters + string.digits
+    return "".join(choice(chars) for x in range(randint(8, 16)))
