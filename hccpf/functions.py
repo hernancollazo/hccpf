@@ -102,19 +102,6 @@ def input_validate(my_string, check_type):
         return False
 
 
-def string_encode(crypt_pass, message):
-    """ Encrypt and encode a message """
-    my_cipher = encrypt(crypt_pass, message.encode('utf8'))
-    return base64.urlsafe_b64encode(my_cipher)
-
-
-def string_decode(crypt_pass, my_cipher):
-    """ Decrypt and decode a message """
-    my_cipher = base64.urlsafe_b64decode(my_cipher)
-    plaintext = decrypt(crypt_pass, my_cipher)
-    return plaintext.decode('utf8')
-
-
 def random_id():
     """ Return a random string """
     chars = string.ascii_letters + string.digits
@@ -135,3 +122,18 @@ def stripComments(code):
     """ Remove # from a string """
     code = str(code)
     return re.sub(r'(?m)^ *#.*\n?', '', code)
+
+
+def string_encode(crypt_pass, message):
+    """ Encrypt and encode a message """
+    print('encode')
+    my_cipher = encrypt(crypt_pass, message.encode('utf8'))
+    return base64.urlsafe_b64encode(my_cipher)
+
+
+def string_decode(crypt_pass, my_cipher):
+    """ Decrypt and decode a message """
+    print('decode')
+    my_cipher = base64.urlsafe_b64decode(my_cipher)
+    plaintext = decrypt(crypt_pass, my_cipher)
+    return plaintext.decode('utf8')
