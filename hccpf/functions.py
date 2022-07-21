@@ -15,11 +15,10 @@ import socket
 import smtplib
 import hashlib
 import string
-import socket
 import re
-import time
 import base64
 import random
+from binascii import hexlify
 from random import choice, randint
 from simplecrypt import encrypt, decrypt
 
@@ -104,16 +103,16 @@ def input_validate(my_string, check_type):
 
 
 def string_encode(crypt_pass, message):
-    """ Encode a message """
-    cipher = encrypt(crypt_pass, message)
-    return base64.urlsafe_b64encode(cipher.encode("latin-1"))
+    """ Encrypt and encode a message """
+    my_cipher = encrypt(crypt_pass, message.encode('utf8'))
+    return base64.urlsafe_b64encode(my_cipher)
 
 
-def string_decode(crypt_pass, cipher):
-    """ Decode a message """
-    cipher = base64.urlsafe_b64decode(cipher.encode("latin-1"))
-    plaintext = decrypt(crypt_pass, cipher)
-    return plaintext
+def string_decode(crypt_pass, my_cipher):
+    """ Decrypt and decode a message """
+    my_cipher = base64.urlsafe_b64decode(my_cipher)
+    plaintext = decrypt(crypt_pass, my_cipher)
+    return plaintext.decode('utf8')
 
 
 def random_id():
