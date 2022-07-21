@@ -10,14 +10,14 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name='hccpf',
-    version='0.0.101',
+    version='0.0.105',
     author='Hernán Collazo',
     author_email='hernan.collazo@gmail.com',
     description='Common useful python functions',
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/hernancollazo/hccpf',
-    project_urls = {
+    project_urls={
         "Bug Tracker": "https://github.com/hernancollazo/hccpf/issues"
     },
     license='MIT',
