@@ -62,25 +62,47 @@ def comp_dates(d1, d2):
         time.mktime(time.strptime(d1, "%Y-%m-%d %H:%M:%S"))
         
         
-def sendEmail(mailFrom, mailTo, mailSubject, mailBody, SMTPServer="localhost", SMTPTimeOut=30):
-    "Send basic email"
-    msg = "" + "From: " + mailFrom + "\n"
-    msg = msg + "To: " + mailTo + "\n"
-    msg = msg + "Subject: " + mailSubject + "\n"
+def sendEmail(mail_from,
+              mail_to,
+              mail_subject,
+              mail_body,
+              smtp_server="localhost",
+              smtp_timeout=30,
+              smtp_user='',
+              smtp_pass=''):
+    """ 
+    
+    Send emails through an SMTP server
+
+    Args:
+        
+    Returns:
+        new dict
+
+    Example:
+
+    """
+    msg = "" + "From: " + mail_from + "\n"
+    msg = msg + "To: " + mail_to + "\n"
+    msg = msg + "Subject: " + mail_subject + "\n"
     msg = msg + "\n"
-    msg = msg + mailBody
-    socket.setdefaulttimeout(SMTPTimeOut)
+    msg = msg + mail_body
+    socket.setdefaulttimeout(smtp_timeout)
     try:
-        server = smtplib.SMTP(SMTPServer)
+        server = smtplib.SMTP(smtp_server)
         server.set_debuglevel(0)
+        if smtp_pass != '' and smtp_user != '':
+            server.starttls()
+            server.login(smtp_user, smtp_pass)
     except socket.timeout:
-        print("\n\n**** ERROR **** server timeout!\n\n")
+        print("\n\n**** ERROR **** SMTP Server timeout!\n\n")
         sys.exit(0)
     except smtplib.socket.gaierror:
         return False
-    server.sendmail(mailFrom, mailTo, msg)
+    server.sendmail(mail_from, mail_to, msg)
     server.quit()
-    
+    return 
+
     
 def input_validate(my_string, check_type):
     """ Basic string validation function """
@@ -151,3 +173,23 @@ def random_password():
     """
     chars = string.ascii_letters + string.digits
     return "".join(choice(chars) for x in range(randint(8, 16)))
+
+
+def twolists_to_dictionary(keys, values):
+    """ Convert two lists into a dictionary
+
+    Args:
+        keys (_type_): keys = ["a", "b", "c"]    
+        values (_type_): values = [2, 3, 4]
+        
+    Returns:
+        new dict
+
+    Example:
+    
+        keys = ["a", "b", "c"]    
+        values = [2, 3, 4]
+        print(to_dictionary(keys, values)) # {'a': 2, 'c': 4, 'b': 3}
+
+    """
+    return dict(zip(keys, values))
