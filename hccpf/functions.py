@@ -60,27 +60,20 @@ def comp_dates(d1, d2):
     """ Compare two dates and return the diff in seconds """
     return time.mktime(time.strptime(d2, "%Y-%m-%d %H:%M:%S")) -\
         time.mktime(time.strptime(d1, "%Y-%m-%d %H:%M:%S"))
-        
-        
+
+
 def sendEmail(mail_from,
               mail_to,
               mail_subject,
               mail_body,
               smtp_server="localhost",
+              smtp_port=25,
               smtp_timeout=30,
               smtp_user='',
-              smtp_pass=''):
-    """ 
-    
+              smtp_pass='',
+              smtp_debug=0):
+    """
     Send emails through an SMTP server
-
-    Args:
-        
-    Returns:
-        new dict
-
-    Example:
-
     """
     msg = "" + "From: " + mail_from + "\n"
     msg = msg + "To: " + mail_to + "\n"
@@ -89,8 +82,8 @@ def sendEmail(mail_from,
     msg = msg + mail_body
     socket.setdefaulttimeout(smtp_timeout)
     try:
-        server = smtplib.SMTP(smtp_server)
-        server.set_debuglevel(0)
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.set_debuglevel(smtp_debug)
         if smtp_pass != '' and smtp_user != '':
             server.starttls()
             server.login(smtp_user, smtp_pass)
@@ -101,9 +94,9 @@ def sendEmail(mail_from,
         return False
     server.sendmail(mail_from, mail_to, msg)
     server.quit()
-    return 
+    return
 
-    
+
 def input_validate(my_string, check_type):
     """ Basic string validation function """
     if check_type == 'username':
@@ -179,15 +172,15 @@ def twolists_to_dictionary(keys, values):
     """ Convert two lists into a dictionary
 
     Args:
-        keys (_type_): keys = ["a", "b", "c"]    
+        keys (_type_): keys = ["a", "b", "c"]
         values (_type_): values = [2, 3, 4]
-        
+
     Returns:
         new dict
 
     Example:
-    
-        keys = ["a", "b", "c"]    
+
+        keys = ["a", "b", "c"]
         values = [2, 3, 4]
         print(to_dictionary(keys, values)) # {'a': 2, 'c': 4, 'b': 3}
 
