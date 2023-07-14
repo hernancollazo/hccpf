@@ -198,6 +198,12 @@ def validate_time_format(string):
     Returns:
         bool: True if the string matches the format and represents a valid time,
             False otherwise.
+
+    print(validate_time_format("12:34"))  # True
+    print(validate_time_format("25:00"))  # False (invalid hour)
+    print(validate_time_format("12:60"))  # False (invalid minutes)
+    print(validate_time_format("99:99"))  # False (invalid hour and minutes)
+
     """
     pattern = r'^\d{2}:\d{2}$'
     if not re.match(pattern, string):
