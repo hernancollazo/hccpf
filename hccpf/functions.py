@@ -186,3 +186,26 @@ def twolists_to_dictionary(keys, values):
 
     """
     return dict(zip(keys, values))
+
+
+def validate_time_format(string):
+    """
+    Validates if a string matches the "hh:mm" format and represents a valid time.
+
+    Args:
+        string (str): The string to be validated.
+
+    Returns:
+        bool: True if the string matches the format and represents a valid time,
+            False otherwise.
+    """
+    pattern = r'^\d{2}:\d{2}$'
+    if not re.match(pattern, string):
+        return False
+    hours, minutes = map(int, string.split(':'))
+    if hours < 0 or hours > 23:
+        return False
+    if minutes < 0 or minutes > 59:
+        return False
+    return True
+
