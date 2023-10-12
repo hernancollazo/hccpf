@@ -215,3 +215,17 @@ def validate_time_format(string):
         return False
     return True
 
+
+def get_shortname(fqdn):
+    """
+    This function extracts the hostname from a Fully Qualified Domain Name (FQDN).
+    
+    Args:
+        fqdn (str): The Fully Qualified Domain Name.
+        
+    Returns:
+        str: The hostname.
+    """
+    parts = fqdn.split('.')
+    hostname = parts[0]
+    return hostname
