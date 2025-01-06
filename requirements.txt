@@ -1,3 +1,2 @@
-hccpf==0.0.130
-pycrypto==2.6.1
-simple-crypt==4.1.7
+pycrypto
+simple-crypt
