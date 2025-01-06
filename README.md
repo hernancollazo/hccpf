@@ -1,6 +1,12 @@
 # hccpf
 Common useful python functions
 
+# Installation
+
+Install this directly into your project using PIP:
+
+```pip install git+https://github.com/hernancollazo/hccpf.git@main```
+
 # Functions Overview
 
 ## 1. `get_domain(string)`
