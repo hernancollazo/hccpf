@@ -63,7 +63,7 @@ print(comp_dates(d1, d2))  # Output: 3600
 ---
 
 ## 5. `sendEmail(...)`
-Sends an email using an SMTP server. 
+Sends an email using an SMTP server.
 
 **Example:**
 ```python
@@ -85,6 +85,8 @@ sendEmail(
 
 ## 6. `input_validate(my_string, check_type)`
 Validates a string based on the specified type (e.g., username, hostname, email).
+
+Valid check types: "username", "hostname", "int", "email", "comment", "version_name", "aws_ami_id"
 
 **Example:**
 ```python
