@@ -88,6 +88,9 @@ def input_validate(my_string, check_type):
         "comment": r"^[A-Za-z0-9\s\(\)_-]*$",
         "version_name": r"^[A-Za-z0-9.\s_-]*$",
         "aws_ami_id": r"^ami-\w*$",
+        "phone": r"^\+?1?\d{9,15}$",  # Basic international format
+        "phone_us": r"^\+?1?\d{10}$",  # US format (10 digits)
+        "phone_intl": r"^\+\d{1,3}[-\s]?\d{9,15}$"  # Strict international format
     }
     pattern = patterns.get(check_type)
     return bool(re.fullmatch(pattern, my_string)) if pattern else False

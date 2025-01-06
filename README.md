@@ -86,7 +86,21 @@ sendEmail(
 ## 6. `input_validate(my_string, check_type)`
 Validates a string based on the specified type (e.g., username, hostname, email).
 
-Valid check types: "username", "hostname", "int", "email", "comment", "version_name", "aws_ami_id"
+Valid check types:
+
+| Type | Description |
+|---|---|
+| username | A valid username |
+| hostname | A valid hostname |
+| int | It's a int? |
+| email | A valid email address |
+| comment | A valid comment (letters, numbers, spaces) |
+| version_name | A product version name |
+| aws_ami_id | A valid AWS AMI ID |
+| phone | Basic international format |
+| phone_us | US format (10 digits) |
+| phone_intl | Strict international format |
+
 
 **Example:**
 ```python
