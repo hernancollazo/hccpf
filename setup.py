@@ -10,7 +10,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name='hccpf',
-    version='0.0.130',
+    version='0.0.150',
     author='Hernán Collazo',
     author_email='hernan.collazo@gmail.com',
     description='Common useful python functions',
