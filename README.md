@@ -321,14 +321,3 @@ from hccpf import check_url_status
 print(check_url_status("https://www.google.com"))
 # Output: {'status_code': 200, 'success': True, 'response_time': 0.245}
 ```
----
-
-## `is_port_service(port: int)`
-Returns common service name for well-known ports.
-**Example:**
-```python
-from hccpf import is_port_service
-print(is_port_service(80))  # Output: 'HTTP'
-print(is_port_service(443))  # Output: 'HTTPS'
-print(is_port_service(9999))  # Output: None
-```
