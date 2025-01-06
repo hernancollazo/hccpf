@@ -9,7 +9,7 @@ Install this directly into your project using PIP:
 
 # Functions Overview
 
-## 1. `get_domain(string)`
+## `get_domain(string)`
 Extracts the domain name from a given URL.
 
 **Example:**
@@ -22,7 +22,7 @@ print(get_domain(url))  # Output: "www.example.com"
 
 ---
 
-## 2. `is_valid_ipv4_address(address)`
+## `is_valid_ipv4_address(address)`
 Checks if the provided string is a valid IPv4 address.
 
 **Example:**
@@ -35,7 +35,7 @@ print(is_valid_ipv4_address("256.256.256.256"))  # Output: False
 
 ---
 
-## 3. `is_valid_ipv6_address(address)`
+## `is_valid_ipv6_address(address)`
 Checks if the provided string is a valid IPv6 address.
 
 **Example:**
@@ -48,7 +48,7 @@ print(is_valid_ipv6_address("invalid-ip"))  # Output: False
 
 ---
 
-## 4. `comp_dates(d1, d2)`
+## `comp_dates(d1, d2)`
 Compares two date strings in the format `"%Y-%m-%d %H:%M:%S"` and returns the difference in seconds.
 
 **Example:**
@@ -62,7 +62,7 @@ print(comp_dates(d1, d2))  # Output: 3600
 
 ---
 
-## 5. `sendEmail(...)`
+## `sendEmail(...)`
 Sends an email using an SMTP server.
 
 **Example:**
@@ -83,7 +83,7 @@ sendEmail(
 
 ---
 
-## 6. `input_validate(my_string, check_type)`
+## `input_validate(my_string, check_type)`
 Validates a string based on the specified type (e.g., username, hostname, email).
 
 Valid check types:
@@ -112,7 +112,7 @@ print(input_validate("test@", "email"))  # Output: None
 
 ---
 
-## 7. `random_id()`
+## `random_id()`
 Generates a random alphanumeric string between 8 and 16 characters.
 
 **Example:**
@@ -124,7 +124,7 @@ print(random_id())  # Output: "A1b2C3d4E5"
 
 ---
 
-## 8. `resolve_hostname(hostname)`
+## `resolve_hostname(hostname)`
 Resolves a hostname to its corresponding IP address.
 
 **Example:**
@@ -136,7 +136,7 @@ print(resolve_hostname("example.com"))  # Output: "93.184.216.34"
 
 ---
 
-## 9. `stripComments(code)`
+## `stripComments(code)`
 Removes comments from a given string.
 
 **Example:**
@@ -154,7 +154,7 @@ print(stripComments(code))
 
 ---
 
-## 10. `string_encode(crypt_pass, message)`
+## `string_encode(crypt_pass, message)`
 Encrypts and encodes a message using an encryption key and Base64.
 
 **Example:**
@@ -169,7 +169,7 @@ print(encoded)
 
 ---
 
-## 11. `string_decode(crypt_pass, my_cipher)`
+## `string_decode(crypt_pass, my_cipher)`
 Decrypts and decodes a previously encrypted message.
 
 **Example:**
@@ -183,7 +183,7 @@ print(decoded)  # Output: "This is a secret message"
 
 ---
 
-## 12. `ValidateEmail(email)`
+## `ValidateEmail(email)`
 Checks if the provided string is a valid email address.
 
 **Example:**
@@ -196,7 +196,7 @@ print(ValidateEmail("invalid-email"))  # Output: 0
 
 ---
 
-## 13. `random_password()`
+## `random_password()`
 Generates a random password between 8 and 16 characters.
 
 **Example:**
@@ -208,7 +208,7 @@ print(random_password())  # Output: "A1b2C3d4E5"
 
 ---
 
-## 14. `twolists_to_dictionary(keys, values)`
+## `twolists_to_dictionary(keys, values)`
 Combines two lists into a dictionary.
 
 **Example:**
@@ -222,7 +222,7 @@ print(twolists_to_dictionary(keys, values))  # Output: {"a": 1, "b": 2, "c": 3}
 
 ---
 
-## 15. `validate_time_format(string)`
+## `validate_time_format(string)`
 Validates if a string matches the `"hh:mm"` format.
 
 **Example:**
@@ -235,7 +235,7 @@ print(validate_time_format("99:99"))  # Output: False
 
 ---
 
-## 16. `get_shortname(fqdn)`
+## `get_shortname(fqdn)`
 Extracts the short hostname from a Fully Qualified Domain Name.
 
 **Example:**
@@ -243,3 +243,92 @@ Extracts the short hostname from a Fully Qualified Domain Name.
 from hccpf import get_shortname
 
 print(get_shortname("host.example.com"))  # Output: "host"
+```
+
+## `is_valid_ip(ip: str)`
+Validates if the provided string is a valid IPv4 or IPv6 address.
+**Example:**
+```python
+from hccpf import is_valid_ip
+print(is_valid_ip("192.168.0.1"))  # Output: True
+print(is_valid_ip("2001:0db8:85a3:0000:0000:8a2e:0370:7334"))  # Output: True
+print(is_valid_ip("256.256.256.256"))  # Output: False
+```
+---
+
+## `get_ip_version(ip: str)`
+Returns IP version (4 or 6) or None if invalid.
+**Example:**
+```python
+from hccpf import get_ip_version
+print(get_ip_version("192.168.0.1"))  # Output: 4
+print(get_ip_version("2001:0db8::1"))  # Output: 6
+print(get_ip_version("invalid"))  # Output: None
+```
+---
+
+## `ping_host(host: str, count: int = 4)`
+Pings a host and returns statistics including success, average time, and packet loss.
+**Example:**
+```python
+from hccpf import ping_host
+result = ping_host("google.com")
+print(result)  # Output: {'success': True, 'avg_time': 20.1, 'packet_loss': 0.0}
+```
+---
+
+## `get_dns_records(domain: str, record_type: str = 'A')`
+Retrieves DNS records for a domain with specified record type.
+**Example:**
+```python
+from hccpf import get_dns_records
+print(get_dns_records("google.com"))  # Output: ['142.251.16.100', '142.251.16.101']
+print(get_dns_records("google.com", "MX"))  # Output: ['10 smtp.google.com']
+```
+---
+
+## `check_port(host: str, port: int, timeout: float = 2.0)`
+Checks if a specific port is open on a host.
+**Example:**
+```python
+from hccpf import check_port
+print(check_port("google.com", 80))  # Output: True
+print(check_port("google.com", 22))  # Output: False
+```
+---
+
+## `get_subnet_info(cidr: str)`
+Calculates subnet information from CIDR notation.
+**Example:**
+```python
+from hccpf import get_subnet_info
+print(get_subnet_info("192.168.1.0/24"))
+# Output: {
+#     'network_address': '192.168.1.0',
+#     'broadcast_address': '192.168.1.255',
+#     'netmask': '255.255.255.0',
+#     'num_addresses': 256,
+#     'hosts': 254
+# }
+```
+---
+
+## `check_url_status(url: str, timeout: float = 5.0)`
+Checks HTTP status and response time of a URL.
+**Example:**
+```python
+from hccpf import check_url_status
+print(check_url_status("https://www.google.com"))
+# Output: {'status_code': 200, 'success': True, 'response_time': 0.245}
+```
+---
+
+## `is_port_service(port: int)`
+Returns common service name for well-known ports.
+**Example:**
+```python
+from hccpf import is_port_service
+print(is_port_service(80))  # Output: 'HTTP'
+print(is_port_service(443))  # Output: 'HTTPS'
+print(is_port_service(9999))  # Output: None
+```

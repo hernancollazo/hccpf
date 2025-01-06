@@ -19,12 +19,17 @@ import re
 import base64
 import random
 import ipaddress
+import subprocess
+import platform
+import requests
+import dns.resolver
 from binascii import hexlify
 from random import choice, randint
 from simplecrypt import encrypt, decrypt
 from urllib.parse import urlparse
 from datetime import datetime
 from email.message import EmailMessage
+from typing import List, Dict, Union, Optional
 
 
 def get_domain(string):
@@ -208,3 +213,90 @@ def get_shortname(fqdn):
     parts = fqdn.split('.')
     hostname = parts[0]
     return hostname
+
+
+def is_valid_ip(ip: str) -> bool:
+    """Validate IPv4 or IPv6 address."""
+    try:
+        ipaddress.ip_address(ip)
+        return True
+    except ValueError:
+        return False
+
+
+def get_ip_version(ip: str) -> Optional[int]:
+    """Return IP version (4 or 6) or None if invalid."""
+    try:
+        return ipaddress.ip_address(ip).version
+    except ValueError:
+        return None
+
+
+def ping_host(host: str, count: int = 4) -> Dict[str, Union[bool, float, int]]:
+    """
+    Ping a host and return statistics.
+    Returns: Dict with success, avg_time, packet_loss
+    """
+    param = '-n' if platform.system().lower() == 'windows' else '-c'
+    command = ['ping', param, str(count), host]
+    try:
+        output = subprocess.check_output(command).decode()
+        if platform.system().lower() == 'windows':
+            loss = float(re.search(r'(\d+)% loss', output).group(1))
+            avg = float(re.search(r'Average = (\d+)ms', output).group(1))
+        else:
+            loss = float(re.search(r'(\d+)% packet loss', output).group(1))
+            avg = float(re.search(r'min/avg/max/mdev = [\d.]+/([\d.]+)/', output).group(1))
+        return {'success': True, 'avg_time': avg, 'packet_loss': loss}
+    except:
+        return {'success': False, 'avg_time': None, 'packet_loss': 100}
+
+
+def get_dns_records(domain: str, record_type: str = 'A') -> List[str]:
+    """Get DNS records for a domain."""
+    try:
+        resolver = dns.resolver.Resolver()
+        answers = resolver.resolve(domain, record_type)
+        return [str(rdata) for rdata in answers]
+    except Exception as e:
+        return []
+
+
+def check_port(host: str, port: int, timeout: float = 2.0) -> bool:
+    """Check if a port is open on a host."""
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(timeout)
+        result = sock.connect_ex((host, port))
+        sock.close()
+        return result == 0
+    except:
+        return False
+
+
+def get_subnet_info(cidr: str) -> Dict[str, Union[str, int]]:
+    """Get information about a subnet."""
+    try:
+        network = ipaddress.ip_network(cidr)
+        return {
+            'network_address': str(network.network_address),
+            'broadcast_address': str(network.broadcast_address),
+            'netmask': str(network.netmask),
+            'num_addresses': network.num_addresses,
+            'hosts': network.num_addresses - 2 if network.version == 4 else network.num_addresses
+        }
+    except ValueError:
+        return {}
+
+
+def check_url_status(url: str, timeout: float = 5.0) -> Dict[str, Union[int, bool, float]]:
+    """Check HTTP status and response time of a URL."""
+    try:
+        response = requests.get(url, timeout=timeout)
+        return {
+            'status_code': response.status_code,
+            'success': response.ok,
+            'response_time': response.elapsed.total_seconds()
+        }
+    except requests.RequestException:
+        return {'status_code': None, 'success': False, 'response_time': None}
