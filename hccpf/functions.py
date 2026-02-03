@@ -62,7 +62,7 @@ def comp_dates(d1, d2):
 
 
 def sendEmail(mail_from, mail_to, mail_subject, mail_body, smtp_server="localhost",
-              smtp_port=25, smtp_timeout=30, smtp_user='', smtp_pass='', smtp_debug=0):
+              smtp_port=25, smtp_timeout=30, smtp_user='', smtp_pass=None, smtp_debug=0):
     """Send emails through an SMTP server."""
     msg = EmailMessage()
     msg["From"] = mail_from
