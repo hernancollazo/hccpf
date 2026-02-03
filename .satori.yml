@@ -38,7 +38,7 @@ flake8:
     assertReturnCode: 0
     assertStdout: False
     run:
-      - find . -type f -name "*.py" -exec flake8 --ignore=E501 {} +
+      - find . -type f -name "*.py" -exec flake8 {} +
 
 safety:
   install:
