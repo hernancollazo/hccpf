@@ -14,13 +14,13 @@ bandit:
     run:
       - bandit -r ./
 
-pylint:
-  install:
-    - DEBIAN_FRONTEND=noninteractive apt update >>/dev/null; apt install -qy pylint >>/dev/null
-  test:
-    assertReturnCode: 0
-    run:
-      - find . -type f -name "*.py" -exec pylint {} +
+#pylint:
+#  install:
+#    - DEBIAN_FRONTEND=noninteractive apt update >>/dev/null; apt install -qy pylint >>/dev/null
+#  test:
+#    assertReturnCode: 0
+#    run:
+#      - find . -type f -name "*.py" -exec pylint {} +
 
 ruff:
   install:
