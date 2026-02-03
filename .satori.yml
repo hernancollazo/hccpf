@@ -45,6 +45,6 @@ safety:
     - pip3 install safety -q --disable-pip-version-check --root-user-action=ignore
   test:
     assertReturnCode: 0
-    assertStdout: False
+    assertStdoutContains: "No known security vulnerabilities reported."
     run:
-      - safety scan -r requirements.txt
+      - safety check -r requirements.txt
