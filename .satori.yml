@@ -16,7 +16,7 @@ bandit:
 
 pylint:
   install:
-    - apt update >>/dev/null; apt install -qy pylint >>/dev/null
+    - DEBIAN_FRONTEND=noninteractive apt update >>/dev/null; apt install -qy pylint >>/dev/null
   test:
     assertReturnCode: 0
     run:
