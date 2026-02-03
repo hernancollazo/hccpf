@@ -58,7 +58,7 @@ def comp_dates(d1, d2):
     """Compare two dates and return the difference in seconds."""
     fmt = "%Y-%m-%d %H:%M:%S"
     delta = datetime.strptime(d2, fmt) - datetime.strptime(d1, fmt)
-    return delta.total_seconds()
+    return int(delta.total_seconds())
 
 
 def sendEmail(mail_from, mail_to, mail_subject, mail_body, smtp_server="localhost",
