@@ -8,7 +8,7 @@ settings:
 
 bandit:
   install:
-    - pip install bandit -q --disable-pip-version-check
+    - pip install bandit -q --disable-pip-version-check --root-user-action=ignore
   test:
     assertStdoutContains: "No issues identified"
     run:
@@ -24,7 +24,7 @@ pylint:
 
 ruff:
   install:
-    - pip3 install ruff -q --disable-pip-version-check
+    - pip3 install ruff -q --disable-pip-version-check --root-user-action=ignore
   test:
     assertStdout: False
     assertStderr: False
@@ -33,7 +33,7 @@ ruff:
 
 flake8:
   install:
-    - pip install flake8 -q --disable-pip-version-check
+    - pip install flake8 -q --disable-pip-version-check --root-user-action=ignore
   test:
     assertReturnCode: 0
     assertStdout: False
@@ -42,7 +42,7 @@ flake8:
 
 safety:
   install:
-    - pip3 install safety -q --disable-pip-version-check
+    - pip3 install safety -q --disable-pip-version-check --root-user-action=ignore
   test:
     assertReturnCode: 0
     assertStdout: False
