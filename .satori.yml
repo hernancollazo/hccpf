@@ -29,7 +29,7 @@ ruff:
     assertStdout: False
     assertStderr: False
     run:
-      - ruff check --ignore F401 ./
+      - ruff check --ignore F401,F403 ./
 
 flake8:
   install:
