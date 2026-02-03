@@ -47,4 +47,4 @@ safety:
     assertReturnCode: 0
     assertStdout: False
     run:
-      - safety check -r requirements.txt
+      - safety scan -r requirements.txt
