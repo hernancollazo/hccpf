@@ -27,6 +27,7 @@ ruff:
     - pip3 install ruff -q --disable-pip-version-check --root-user-action=ignore
   test:
     assertStdout: False
+    assertStdoutContains: "All checks passed!"
     assertStderr: False
     run:
       - ruff check --ignore F401,F403 ./
