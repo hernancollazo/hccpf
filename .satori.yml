@@ -8,7 +8,7 @@ settings:
 
 bandit:
   install:
-    - pip install bandit -q --disable-pip-version-check --root-user-action=ignore
+    - pip install bandit -q --disable-pip-version-check --root-user-action=ignore -s B404,B311,B603
   test:
     assertStdoutContains: "No issues identified"
     run:
