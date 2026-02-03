@@ -248,7 +248,7 @@ def ping_host(host: str, count: int = 4) -> Dict[str, Union[bool, float, int]]:
             loss = float(re.search(r'(\d+)% packet loss', output).group(1))
             avg = float(re.search(r'min/avg/max/mdev = [\d.]+/([\d.]+)/', output).group(1))
         return {'success': True, 'avg_time': avg, 'packet_loss': loss}
-    except:
+    except Exception:
         return {'success': False, 'avg_time': None, 'packet_loss': 100}
 
 
@@ -258,7 +258,7 @@ def get_dns_records(domain: str, record_type: str = 'A') -> List[str]:
         resolver = dns.resolver.Resolver()
         answers = resolver.resolve(domain, record_type)
         return [str(rdata) for rdata in answers]
-    except Exception as e:
+    except Exception:
         return []
 
 
@@ -270,7 +270,7 @@ def check_port(host: str, port: int, timeout: float = 2.0) -> bool:
         result = sock.connect_ex((host, port))
         sock.close()
         return result == 0
-    except:
+    except Exception:
         return False
 
 

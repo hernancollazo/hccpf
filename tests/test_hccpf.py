@@ -18,6 +18,7 @@ from hccpf import (
     check_url_status,
 )
 
+
 class TestUtilityFunctions(unittest.TestCase):
     def test_get_domain(self):
         self.assertEqual(get_domain("http://example.com"), "example.com")
@@ -95,6 +96,7 @@ class TestUtilityFunctions(unittest.TestCase):
         self.assertIn('status_code', result)
         self.assertIn('success', result)
         self.assertIn('response_time', result)
+
 
 if __name__ == "__main__":
     unittest.main()
